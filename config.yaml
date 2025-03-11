@@ -1,0 +1,22 @@
+port: "8888"
+
+database:
+  type: "mysql"
+  user: "root"
+  password: "12345"
+  host: "127.0.0.1"
+  port: "3306"
+  name: "meme_magic"
+  charset: "utf8mb4"
+
+openai_key: "yours"
+replicate_key: "yours"
+
+hugging_face:
+  api_url: "https://api-inference.huggingface.co/models/runwayml/stable-diffusion-v1-5"
+  api_key: "yours"
+
+local_ai_url: "http://192.168.0.166/api/getImage"
+
+
+telegram_bot_token: "yours"
