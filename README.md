@@ -63,12 +63,12 @@ meme-magic/
 │── config.yaml          # 設定檔
 │── generated_image.png  # 已生成的圖片
 │── ai/                  # AI 生成圖片相關
-│   ├── dalle.go
-│   ├── hugging_face.go
-│   ├── my_local_ai.go   # 用來請求本地 AI Server (需另外起
+│   ├── dalle.go         # 第三方,須付費使用   
+│   ├── hugging_face.go  # 第三方,須付費使用   
+│   ├── my_local_ai.go   # 用來請求本地 AI Server (需另外啟動)
 │   ├── replicate.go
 │── api/                 # API 端點
-│   ├── hello.go         # 測試 API
+│   ├── hello.go         # Hello World
 │   ├── meme_api.go      # 迷因生成 AP
 │   ├── telegram.go      # Telegram Bot API 控制
 │── config/              # 設定管理
@@ -90,12 +90,14 @@ meme-magic/
 │   ├── telegram_bot.go  # 負責 Telegram Bot 運行
 ```
 
----
 
-## **📡 API 端點**
 
-- 啟動: POST /telegram/start
-- 停止: POST /telegram/stop
+[//]: # (## **📡 API 端點**)
+
+[//]: # ()
+[//]: # (- 啟動: POST /telegram/start)
+
+[//]: # (- 停止: POST /telegram/stop)
 
 ---
 
@@ -110,5 +112,5 @@ meme-magic/
 - **使用者自訂迷因模板**
 - **排行榜 & 收藏功能**
 - **支援社群分享（Threads, Discord, Twitter）**
-
+ 
 

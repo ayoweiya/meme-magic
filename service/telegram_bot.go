@@ -45,9 +45,11 @@ func (t *TelegramBotService) Start() {
 
 	// 設定指令
 	bot.Handle("/meme", func(m *telebot.Message) {
-		prompt := "甄傳熱門迷因圖片嬛"
+		log.Println("收到 /meme 指令")
+		prompt := "AI爆紅,吉卜力style, cute, anime style, vibrant colors, high-definition quality, natural look"
 		imagePath, err := ai.GenerateMemeByMyLocalAI(prompt)
 		if err != nil {
+			log.Println(err)
 			bot.Send(m.Chat, "❌ 生成迷因圖片失敗!")
 			return
 		}
@@ -60,6 +62,8 @@ func (t *TelegramBotService) Start() {
 		}
 
 		photo := &telebot.Photo{File: telebot.FromDisk(imagePath)}
+		//Telegram 無法存取內網 IP 所以還是照原本的方式存在disk, 然後發佈到tg, 然後也上傳到minio
+		//photo := &telebot.Photo{File: telebot.FromURL("http://192.168.68.57:9000/meme-magic/meme_1741725780.png")}
 		bot.Send(m.Chat, photo)
 	})
 

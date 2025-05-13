@@ -9,6 +9,8 @@ import (
 	"meme-magic/global"
 	"net/http"
 	"net/url"
+	"os"
+	"path/filepath"
 	"time"
 )
 
@@ -44,14 +46,28 @@ func GenerateMemeByMyLocalAI(prompt string) (string, error) {
 			return "", fmt.Errorf("❌ 讀取圖片失敗: %v", err)
 		}
 
-		// 保存圖片至本地文件
-		filePath := "generated_image.png"
-		err = ioutil.WriteFile(filePath, imgData, 0644)
+		// 產生圖片檔名
+		fileName := fmt.Sprintf("meme_%d.png", time.Now().Unix())
+
+		ensureImageDirExists()
+		// 先存到本地
+		localPath := filepath.Join("static", "images", fileName)
+
+		err = ioutil.WriteFile(localPath, imgData, 0644)
 		if err != nil {
 			return "", fmt.Errorf("❌ 保存圖片失敗: %v", err)
 		}
 
-		return filePath, nil
+		return localPath, nil
+
+		// 再上傳到 MinIO**
+		//imageURL, err := utils.UploadToMinIO(fileName, imgData)
+		//if err != nil {
+		//	return localPath, fmt.Errorf("⚠️ 本地儲存成功，但上傳 MinIO 失敗: %v", err)
+		//}
+		//
+		//// 返回MinIO URL
+		//return imageURL, nil
 	}
 
 	// 如果不是圖片，嘗試解析 JSON
@@ -66,10 +82,12 @@ func GenerateMemeByMyLocalAI(prompt string) (string, error) {
 		return "", fmt.Errorf("❌ 解析 JSON 失敗: %v，回應: %s", err, string(body))
 	}
 
-	// 檢查回應是否有錯誤
-	if errMsg, ok := result["error"].(string); ok {
-		return "", fmt.Errorf("❌ API 回應錯誤: %s", errMsg)
-	}
-
 	return "", errors.New("生成圖片失敗")
+}
+
+func ensureImageDirExists() {
+	err := os.MkdirAll("static/images", os.ModePerm)
+	if err != nil {
+		log.Fatal("❌ 建立資料夾失敗:", err)
+	}
 }
