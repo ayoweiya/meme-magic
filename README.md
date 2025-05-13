@@ -15,8 +15,9 @@ Meme-Magic 是一個基於 AI 的迷因圖片生成工具，結合 **Go + Gin + 
 ## **⚙️ 技術組合**
 ✅ **後端**：Go + Gin 框架  
 ✅ **資料庫**：GORM（支援 MySQL / PostgreSQL）  
-✅ **AI 伺服器**：本地 Stable Diffusion  
+✅ **AI 伺服器**：AI 迷因圖生成 (本地 Stable Diffusion)  
 ✅ **消息通知**：Telegram Bot（`telebot`）
+✅ **其他**：MinIO 圖片儲存
 
 ---
 
@@ -104,6 +105,7 @@ meme-magic/
 ## **🤖 Telegram Bot 指令
 - 生成一張 AI 迷因並發送 : ``/meme``
 
+![img.png](img.png)
 
 ---
 
